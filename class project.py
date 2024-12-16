@@ -1,5 +1,3 @@
-
-
 def main():
     clean_lists = make_lists()
     print(clean_lists)
@@ -9,7 +7,6 @@ def main():
     state = state_lookup_prompt(clean_lists)
     vote = vote_lookup_prompt(clean_lists)
     print("Vote: " + vote)
-
 
 
 def make_lists():
@@ -24,24 +21,24 @@ def make_lists():
     size_c = len(conglist)  # Ditto
     print(size_c)  # Ditto**2
     combined_list = [  # Im going to start reformatting senlist into the same format as conglist (conglist is better)
-        [part.strip() for part in row.replace(
-            "(", ",").replace(
-            ")", ",").replace(
-            "-", ",").split(
-            ",") if part.strip()]
+        [
+            part.strip()
+            for part in row.replace("(", ",")
+            .replace(")", ",")
+            .replace("-", ",")
+            .split(",")
+            if part.strip()
+        ]
         for row in senlist + conglist
-        if row.
-           strip() and row.
-        strip() != "DATA\n"  # This is my way of removing the old senlist's header from the new list
+        if row.strip()
+        and row.strip()
+        != "DATA\n"  # This is my way of removing the old senlist's header from the new list
     ]
-    headers = ["Name",
-               "Party",
-               "State",
-               "Vote"
-               ]
+    headers = ["Name", "Party", "State", "Vote"]
 
-    combined_list.insert(0,
-                           headers)  # this inserts the new headers into the list in case we want to save it to a file
+    combined_list.insert(
+        0, headers
+    )  # this inserts the new headers into the list in case we want to save it to a file
 
     print(combined_list)
     return combined_list, conglist
@@ -60,13 +57,13 @@ def name_lookup_prompt(data):
     return results
 
 
-
 def party_lookup_prompt(data):
     party = input("please enter an established party's name: ").strip()
     results = [row for row in data if party in row[1]]
     if results:
         print("Results for party: ")
     return results
+
 
 def state_lookup_prompt(data):
     state = input("Please enter the name of the state in question: ").strip()
@@ -75,20 +72,24 @@ def state_lookup_prompt(data):
         print("Results for party: ")
     return state
 
+
 def vote_lookup_prompt(data):
-    vote = input("Please enter either \"Yay\" or \"Nay\": ").strip()
+    vote = input('Please enter either "Yay" or "Nay": ').strip()
     results = [row for row in data if vote in row[3]]
     if results:
         print("Results for vote: ")
     return vote
 
+
 def search_lists(data):
     ui = ""
-    print("*** This is a program intended to allow the user to assess relevant statistics\n"
-          "Of The 2002 vote to declare war on Iraq\n"
-          "Users may search based on the following criteria: name, party, state, vote ***\n"
-          "Or enter "
-          "\"q\" to quit")
+    print(
+        "*** This is a program intended to allow the user to assess relevant statistics\n"
+        "Of The 2002 vote to declare war on Iraq\n"
+        "Users may search based on the following criteria: name, party, state, vote ***\n"
+        "Or enter "
+        '"q" to quit'
+    )
     while ui != "q":
         done = False
         ui = input("Please enter which criteria you would like to search based upon: ")
@@ -107,5 +108,5 @@ def search_lists(data):
     return ui
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
