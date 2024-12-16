@@ -1,25 +1,33 @@
 def main():
     clean_lists = make_lists()
-    print(clean_lists)
+    print(f"{clean_lists = }")
     search = search_lists(clean_lists)
+    print(f"{search = }")
     name = name_lookup_prompt(clean_lists)
+    print(f"{name = }")
     party = party_lookup_prompt(clean_lists)
+    print(f"{party = }")
     state = state_lookup_prompt(clean_lists)
+    print(f"{state = }")
     vote = vote_lookup_prompt(clean_lists)
     print("Vote: " + vote)
 
 
 def make_lists():
     with open("senate1.csv", "r") as f:  # opening senate1 file into program as "f"
-        senlist = f.readlines()  # reading it into a list
+        senlist = f.read().rstrip().splitlines()  # reading it into a list
     print(senlist[:5])  # printing it to see if it works (great success!)
+
     with open("congress.csv", "r") as e:  # opening congress' into program as "e"
-        conglist = e.readlines()
+        conglist = e.read().rstrip().splitlines()
     print(conglist[:5])  # same as senlist
+
     size_s = len(senlist)  # getting length of list and putting it in a box
     print(size_s)  # printing the box's content
+
     size_c = len(conglist)  # Ditto
     print(size_c)  # Ditto**2
+
     combined_list = [  # Im going to start reformatting senlist into the same format as conglist (conglist is better)
         [
             part.strip()
@@ -90,8 +98,8 @@ def search_lists(data):
         "Or enter "
         '"q" to quit'
     )
-    while ui != "q":
-        done = False
+    done = False
+    while not done:
         ui = input("Please enter which criteria you would like to search based upon: ")
 
         if ui == "name":
